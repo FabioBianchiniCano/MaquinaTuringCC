@@ -2,23 +2,23 @@
 #include <typeinfo>
 
 Belt::Belt() {
-  belt.push_back(blanck);
-  belt.push_back(blanck);
+  belt.push_back(blank);
+  belt.push_back(blank);
 }
 
-Belt::Belt(string newString, char newBlanck) {
-  blanck = newBlanck;
-  belt.push_back(blanck);
+Belt::Belt(string newString, char newBlank) {
+  blank = newBlank;
+  belt.push_back(blank);
   for (auto c: newString)
     belt.push_back(c);
-  belt.push_back(blanck);
+  belt.push_back(blank);
 }
 
 Belt::Belt(string newString) {
-  belt.push_back(blanck);
+  belt.push_back(blank);
   for (auto c: newString)
     belt.push_back(c);
-  belt.push_back(blanck);
+  belt.push_back(blank);
 }
 
 string Belt::getBelt() {

@@ -48,7 +48,7 @@ InfoMachine readFile(string filename) {
         infoFile.initialState = line;
         break;
       case 4:
-        infoFile.blanckChar = line[0];
+        infoFile.blankChar = line[0];
         break;
       case 5:
         infoFile.acceptanceStates = splitString(line);

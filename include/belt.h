@@ -9,7 +9,7 @@ class Belt {
   private:
     string belt;
     int pointer = 0;
-    char blanck = '.';
+    char blank = '.';
     
   public:
     Belt();

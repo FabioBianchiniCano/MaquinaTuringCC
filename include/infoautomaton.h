@@ -11,7 +11,7 @@ struct InfoMachine {
   vector<string> inputAlph;
   vector<string> outputAlph;
   string initialState;
-  char blanckChar;
+  char blankChar;
   vector<string> acceptanceStates;
   vector<vector <string> > transitions;
 };

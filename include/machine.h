@@ -13,7 +13,7 @@ class Machine {
     vector<string> acceptanceStates;
     vector<string> alphabetInput;
     vector<string> alphabetOutput;
-    char blanck;
+    char blank;
     State initialState;
     Belt belt;
     State currentState;

@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
   cout << "obj.inputAlph " << obj.inputAlph << endl;
   cout << "obj.outputAlph " << obj.outputAlph << endl;
   cout << "obj.initialState " << obj.initialState << endl;
-  cout << "obj.blanckChar " << obj.blanckChar << endl;
+  cout << "obj.blankChar " << obj.blankChar << endl;
   cout << "obj.acceptanceStates " << obj.acceptanceStates << endl;
   for (auto tr: obj.transitions) cout << tr << endl;
 
