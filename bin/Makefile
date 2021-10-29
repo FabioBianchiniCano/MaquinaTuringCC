@@ -4,7 +4,7 @@ _SRC = ../src/
 
 CC = g++
 CFLAGS = -Wall -g -c -I$(_INC)
-OBJ = belt.o main.o
+OBJ = belt.o transition.o state.o machine.o main.o
 BINARY = turing
 
 
@@ -15,6 +15,8 @@ all: $(BINARY)
 $(BINARY): $(OBJ)
 	$(CC) -Wsign-compare -o $(BINARY) $(OBJFULL)
 	@clear
+	@echo "Ejecutando el programa...\n-----------------------------"
+	@./$(BINARY)
 
 
 # $@ main.o

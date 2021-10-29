@@ -7,21 +7,25 @@ using namespace std;
 
 class Transition {
   private:
-    string charBelt;
-    string charStack;
-    vector<string> insertCharsStack;
+    string inputChar;
+    string outputChar;
     string idStateTo;
     string idStateFrom;
+    string direction;
 
   public:
     Transition();
-    Transition(string, string, vector<string>, string);
-    void setStateFrom(string stateFrom) {idStateFrom = stateFrom; }
-    string getIdStateFrom() { return idStateFrom; } 
-    string getCharBelt(); 
-    string getCharStack();
-    vector<string> getInsertCharsStack();
+    Transition(string, string, string, string, string);
+    string getInputChar();
+    string getOutputChar();
     string getIdStateTo();
+    string getIdStateFrom();
+    string getDirection();
+    void setInputChar(string);
+    void setOutputChar(string);
+    void setIdStateTo(string);
+    void setStateFrom(string);
+    void setDirection(string);
     void operator=(Transition);
     friend ostream& operator<<(ostream&, const Transition&);
 

@@ -6,12 +6,12 @@
 
 using namespace std;
 
-struct InfoAutomaton {
-  vector<string> statesSet;
-  vector<string> conveyorAlph;
-  vector<string> stackAlph;
+struct InfoMachine {
+  vector<string> states;
+  vector<string> inputAlph;
+  vector<string> outputAlph;
   string initialState;
-  string initialStack;
+  char blanckChar;
   vector<string> acceptanceStates;
   vector<vector <string> > transitions;
 };

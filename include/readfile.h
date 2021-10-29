@@ -21,8 +21,8 @@ vector<string> splitString(string str, string separator = " ") {
   return finalStr;
 }
 
-InfoAutomaton readFile(string filename) {
-  InfoAutomaton infoFile;
+InfoMachine readFile(string filename) {
+  InfoMachine infoFile;
   string line;
   ifstream file("../lib/" + filename + ".txt");
   if (file.fail()) {
@@ -36,19 +36,19 @@ InfoAutomaton readFile(string filename) {
     if (!line.empty()) {
       switch (i) {
       case 0:
-        infoFile.statesSet = splitString(line);
+        infoFile.states = splitString(line);
         break;
       case 1:
-        infoFile.conveyorAlph = splitString(line);
+        infoFile.inputAlph = splitString(line);
         break;
       case 2:
-        infoFile.stackAlph = splitString(line);
+        infoFile.outputAlph = splitString(line);
         break;
       case 3:
         infoFile.initialState = line;
         break;
       case 4:
-        infoFile.initialStack = line;
+        infoFile.blanckChar = line[0];
         break;
       case 5:
         infoFile.acceptanceStates = splitString(line);

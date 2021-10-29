@@ -7,30 +7,28 @@
 
 using namespace std;
 
-class Graph {
+class Machine {
   private:
     vector<State> states;
-    vector<string> acceptStatesNames;
-    vector<string> alphabetBelt;
-    vector<string> alphabetStack;
-    stack<string> graphStack;
+    vector<string> acceptanceStates;
+    vector<string> alphabetInput;
+    vector<string> alphabetOutput;
+    char blanck;
     State initialState;
-    Belt conveyorBelt;
+    Belt belt;
     State currentState;
     
 
   public:
-    Graph();
-    Graph(vector<State>, vector<string>, vector<string>, vector<string>, stack<string>, Belt);
-    Graph(InfoAutomaton);
+    Machine();
+    Machine(InfoMachine);
     vector<State> getStates();
     vector<string> getAcceptStatesNames();
-    vector<string> getAlphabetBelt();
-    vector<string> getAlphabetStack();
+    vector<string> getAlphabetInput();
+    vector<string> getAlphabetOutput();
     State getInitialState();
-    stack<string> getGraphStack();
-    Belt getConveyorBelt();
-    void setConveyorBelt(Belt);
+    Belt getBelt();
+    void setBelt(Belt);
     State getStateByID(string);
     bool checkInAlphabet(string, vector<string>);
     void doTransition(Transition, Belt&, stack<string>&);

@@ -43,19 +43,10 @@ void State::addTransition(Transition newTrans) {
   transitions.push_back(newTrans);
 }
 
-void State::toggleAcceptance() {
-  acceptance = !acceptance;
-}
-
-vector<Transition> State::possibleTransitions(string charBelt, string charStack) {
+vector<Transition> State::possibleTransitions(string inputChar) {
   vector<Transition> finalTrans;
-  for (auto tr: transitions) {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wparentheses"
-    if ((charBelt == tr.getCharBelt() && charStack == tr.getCharStack()) ||
-    tr.getCharBelt() == "." && charStack == tr.getCharStack()) 
+  for (auto tr: transitions) 
+    if (tr.getInputChar() == inputChar) 
       finalTrans.push_back(tr);
-#pragma GCC diagnostic pop
-  }
   return finalTrans;
 }
