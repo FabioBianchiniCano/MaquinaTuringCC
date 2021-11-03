@@ -14,11 +14,6 @@
 
 using namespace std;
 
-ostream& operator<<(ostream& os, const vector<string>& vec) {
-  for(auto elem : vec)
-    os << elem << " ";
-  return os;
-}
 
 void usage() {
   cout << "--------------------------------------------------------------------------------" << endl;
@@ -33,15 +28,27 @@ void usage() {
 
 int main(int argc, char *argv[]) {
 
-  InfoMachine obj = readFile("Ejemplo_MT");
-  cout << "obj.states " << obj.states << endl;
-  cout << "obj.inputAlph " << obj.inputAlph << endl;
-  cout << "obj.outputAlph " << obj.outputAlph << endl;
-  cout << "obj.initialState " << obj.initialState << endl;
-  cout << "obj.blankChar " << obj.blankChar << endl;
-  cout << "obj.acceptanceStates " << obj.acceptanceStates << endl;
-  for (auto tr: obj.transitions) cout << tr << endl;
+  Machine machine1(readFile(argv[1]));
 
-  cout << "Bye!" << endl; 
+  bool writeMode;
+  istringstream(argv[2]) >> writeMode;
+
+  string belt;
+
+  bool otherString = false;
+  do {
+    cout << "Write the belt you want to test: ";
+    cin >> belt;
+    machine1.setBelt(belt);
+    cout << endl << "--------------------------------------------------\n";
+    machine1.algorithm(machine1.getBelt(), machine1.getInitialState(), writeMode) ? 
+      cout << "String accepted!" << endl :
+      cout << "String not accepted..." << endl;
+
+    cout << "\nDo you want to test another string? (1:yes / 0:no): ";
+    cin >> otherString;
+  } while (otherString);
+
+  cout << "\nBye!" << endl; 
 }
 

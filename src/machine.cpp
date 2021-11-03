@@ -19,13 +19,17 @@ Machine::Machine(InfoMachine infoAut) {
   alphabetInput = infoAut.inputAlph;
   alphabetOutput = infoAut.outputAlph;
 
-  for (auto trans: infoAut.transitions) 
-    for (unsigned int i = 0; i < states.size(); i++) 
-      if (states[i].getName() == trans[0]) {
+  for (auto trans: infoAut.transitions) {
+    for (unsigned int i = 0; i < states.size(); i++)  {
+      if (states[i].getName() == trans[0]/*idStateFrom*/) {
         //                                   input    output    stateTo  stateFrom   direction                                    
         states[i].addTransition(Transition (trans[1], trans[3], trans[2], trans[0], trans[4]));
         break;
       }
+    }
+  }
+
+  blank = infoAut.blankChar;
 
   // Inicializar estado inicial (y el actual, que son el mismo al principio)
   for (auto state: states) 
@@ -47,10 +51,10 @@ vector<string> Machine::getAlphabetOutput() {
   return alphabetOutput;
 }
 
-State Machine::getInitialState() {
+State Machine::getInitialState() const {
   return initialState;
 }
-Belt Machine::getBelt() {
+Belt Machine::getBelt() const {
   return belt;
 }
 void Machine::setBelt(Belt cb) {
@@ -66,48 +70,48 @@ State Machine::getStateByID(string id) {
 }
 
 bool Machine::checkInAlphabet(string charToCheck, vector<string> alphabet) {
-  if (charToCheck == ".") return true;
+  if (charToCheck[0] == blank) return true;
   for (auto str: alphabet) if (str == charToCheck) return true;
-  cout << "String not member of alphabet!" << endl;
+  cout << "String \"" << charToCheck <<  "\" not member of alphabet!" << endl;
   return false;
 }
 
-// void Machine::doTransition(Transition tr, Belt& currentBelt, stack<string>& currentStack) {
-//   currentStack.pop();
-//   if (tr.getCharBelt() != ".") currentBelt.nextChar();
-//   if (tr.getInsertCharsStack()[0] != ".")
-//     for (int i = tr.getInsertCharsStack().size()-1; i >= 0; i--)
-//       currentStack.push(tr.getInsertCharsStack()[i]);
-// }
+ostream& operator<<(ostream& os, const Machine& mac) {
+  os << "Current State: " << mac.getCurrent().getName() << endl;
+  os << "Belt: " << endl << mac.getBelt() << endl;
+  return os;
+}
 
-// bool Machine::algorithm(Belt currentBelt, stack<string> currentStack, State newCS, bool writeMode) {
-//   if (!checkInAlphabet(currentBelt.getCurrent(), alphabetInput)) return false;
-//   if (!checkInAlphabet(currentStack.top(), alphabetOutput)) return false;
+void Machine::doTransition(Transition tr, Belt& currentBelt) {
+  currentBelt.writeChar(tr.getOutputChar()[0]); // toChar
+  currentBelt.nextCharByDir(tr.getDirection());
+}
 
-//   vector<Transition> posTrans(newCS.possibleTransitions(currentBelt.getCurrent(), currentStack.top()));
-//   for (auto tr: posTrans) {
-//     Belt auxBelt = currentBelt;
-//     stack<string> auxStack = currentStack;
-//     doTransition(tr, auxBelt, auxStack);
+bool Machine::algorithm(Belt currentBelt, State newCS, bool writeMode) {
+  if (!checkInAlphabet(currentBelt.getCurrent(), alphabetInput)) return false;
 
-//     if (writeMode) writeTransition(tr, currentBelt, currentStack, newCS);
-//     if (algorithm(auxBelt, auxStack, getStateByID(tr.getIdStateTo()), writeMode))
-//       return true;
-//   }
-//   #pragma GCC diagnostic push
-//   #pragma GCC diagnostic ignored "-Wsign-compare"
-//   if (currentStack.empty() || currentBelt.getPointer() >= currentBelt.getBelt().size()) {
-//     return newCS.isAcceptance() ? true : false;
-//   }
-//   #pragma GCC diagnostic pop
-//   return false;
-// }
+  vector<Transition> posTrans(newCS.possibleTransitions(currentBelt.getCurrent()));
+  for (auto tr: posTrans) {
+    Belt auxBelt = currentBelt;
+    doTransition(tr, auxBelt);
 
-// void Machine::writeTransition(Transition tr, Belt currentBelt, stack<string> currentStack, State newCS) {
-//   cout << "-----------------------\nDescripción instantánea:" << endl;
-//   cout << "Cinta: " << currentBelt.getRemainer() << endl;
-//   cout << "Pila: " << stackToString(currentStack) << endl;
-//   cout << "Estado actual: " << newCS.getName() << endl;
-//   cout << "Transición a realizar: " << tr;
-// }
+    if (!checkInAlphabet(tr.getOutputChar(), alphabetOutput)) return false;
+    if (writeMode) writeTransition(tr, currentBelt, newCS);
+    if (algorithm(auxBelt, getStateByID(tr.getIdStateTo()), writeMode))
+      return true;
+  }
+  
+  if (newCS.possibleTransitions(currentBelt.getCurrent()).empty()) {
+    return newCS.isAcceptance() ? true : false;
+  }
+  return false;
+}
+
+void Machine::writeTransition(Transition tr, Belt currentBelt, State newCS) {
+  // cout << "-----------------------\nDescripción instantánea:" << endl;
+  cout << "Current State: " << newCS.getName() << endl;
+  cout << "Belt: " << endl << currentBelt;
+  cout << "Transición a realizar: " << tr;
+  cout << "--------------------------------------------------\n";
+}
 

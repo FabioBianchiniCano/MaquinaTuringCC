@@ -3,7 +3,7 @@ _OBJ = ../obj/
 _SRC = ../src/
 
 CC = g++
-CFLAGS = -Wall -g -c -I$(_INC)
+CFLAGS = -std=c++14 -Wall -g -c -I$(_INC)
 OBJ = belt.o transition.o state.o machine.o main.o
 BINARY = turing
 
@@ -14,10 +14,7 @@ all: $(BINARY)
 
 $(BINARY): $(OBJ)
 	$(CC) -Wsign-compare -o $(BINARY) $(OBJFULL)
-	@clear
-	@echo "Ejecutando el programa...\n-----------------------------"
-	@./$(BINARY)
-
+	@echo "Ejecute con el comando: ./$(BINARY) namefile writeMode"
 
 # $@ main.o
 # $< main.cpp

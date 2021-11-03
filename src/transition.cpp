@@ -52,7 +52,7 @@ void Transition::operator=(Transition newTrans) {
 ostream& operator<<(ostream& os, const Transition& tr) {
   os << tr.idStateFrom << " " << tr.inputChar << " " 
      << tr.idStateTo   << " " << tr.outputChar << " "
-     << tr.direction << " ";
+     << tr.direction;
   os << endl;
   return os;
 }

@@ -5,6 +5,8 @@
 
 using namespace std;
 
+
+
 class Transition {
   private:
     string inputChar;

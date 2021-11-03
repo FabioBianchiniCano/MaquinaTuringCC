@@ -6,6 +6,12 @@
 
 using namespace std;
 
+template <class T>
+ostream& operator<<(ostream& os, const vector<T>& vec) {
+  for(auto elem : vec) os << elem ;
+  return os;
+}
+
 struct InfoMachine {
   vector<string> states;
   vector<string> inputAlph;

@@ -14,8 +14,8 @@ class Machine {
     vector<string> alphabetInput;
     vector<string> alphabetOutput;
     char blank;
-    State initialState;
     Belt belt;
+    State initialState;
     State currentState;
     
 
@@ -26,13 +26,16 @@ class Machine {
     vector<string> getAcceptStatesNames();
     vector<string> getAlphabetInput();
     vector<string> getAlphabetOutput();
-    State getInitialState();
-    Belt getBelt();
+    State getInitialState() const;
+    Belt getBelt() const;
     void setBelt(Belt);
+    State getCurrent() const {return currentState;}
     State getStateByID(string);
     bool checkInAlphabet(string, vector<string>);
-    void doTransition(Transition, Belt&, stack<string>&);
-    bool algorithm(Belt, stack<string>, State, bool);
-    void writeTransition(Transition, Belt , stack<string> , State );
+    void doTransition(Transition, Belt&);
+    bool algorithm(Belt, State, bool);
+    void writeTransition(Transition, Belt, State);
     string stackToString(stack<string> stack);
+
+    friend ostream& operator<<(ostream&, const Machine&);
 };

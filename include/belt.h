@@ -8,7 +8,7 @@ using namespace std;
 class Belt {
   private:
     string belt;
-    int pointer = 0;
+    int pointer = 1;
     char blank = '.';
     
   public:
@@ -19,6 +19,13 @@ class Belt {
     int getPointer();
     string getCurrent();
     string getRemainer();
-    string nextChar();
+    string rightChar();
+    string leftChar();
+    string nextCharByDir(string);
+    void enlargeLeft();
+    void enlargeRight();
+    void writeChar(char);
     void operator=(Belt);
+    friend ostream& operator<<(ostream&, const Belt&);
+
 };
