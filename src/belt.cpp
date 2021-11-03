@@ -63,12 +63,12 @@ string Belt::nextCharByDir(string dir) {
 }
 
 void Belt::enlargeLeft() {
-  belt.insert(0, ".");
+  belt.insert(0, 1, blank);
   pointer++;
 }
 
 void Belt::enlargeRight() {
-  belt += ".";
+  belt += blank;
 }
 
 void Belt::writeChar(char outputChar) {
